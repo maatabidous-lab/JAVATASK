@@ -1,6 +1,6 @@
-package sample.service;
+package Sample.service;
 
-import sample.model.Medicine;
+import Sample.model.Medicine;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

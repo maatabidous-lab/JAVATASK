@@ -1,9 +1,9 @@
-package sample;
+package Sample;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.controller.MedicineController;
+import Sample.controller.MedicineController;
 
 public class Main extends Application {
     @Override

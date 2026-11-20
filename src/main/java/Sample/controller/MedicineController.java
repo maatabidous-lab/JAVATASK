@@ -1,14 +1,14 @@
-package sample.controller;
+package Sample.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
-import sample.model.Medicine;
-import sample.service.MedicineService;
-import sample.view.AddMedicineView;
-import sample.view.EditMedicineView;
-import sample.view.MedicineView;
+import Sample.model.Medicine;
+import Sample.service.MedicineService;
+import Sample.view.AddMedicineView;
+import Sample.view.EditMedicineView;
+import Sample.view.MedicineView;
 
 public class MedicineController {
 

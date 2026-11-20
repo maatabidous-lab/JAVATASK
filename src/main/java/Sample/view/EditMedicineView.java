@@ -1,4 +1,4 @@
-package sample.view;
+package Sample.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import sample.model.Medicine;
+import Sample.model.Medicine;
 
 public class EditMedicineView {
 
