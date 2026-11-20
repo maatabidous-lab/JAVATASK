@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import Sample.model.Medicine;
-
 public class MedicineView {
 
     private final BorderPane root;
