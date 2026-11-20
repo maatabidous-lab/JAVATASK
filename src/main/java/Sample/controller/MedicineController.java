@@ -22,10 +22,9 @@ public class MedicineController {
         allMedicines = FXCollections.observableArrayList(service.loadMedicines());
         view.getMedicineTable().setItems(allMedicines);
 
-        // ====== NEW - بتاع التاسك - تفعيل الزرارير اللي كانت نايمة ======
-        setupSearchButton(); // NEW - بتاع زرار Search
-        setupSidebarButtons(); // NEW - بتاع زرارير السايد بار كلها
-        // ====== END NEW ======
+        // TODO - التاسك هنا: فعل الزرارير اللي نايمة
+        // 1 - اعمل setupSearchButton()
+        // 2 - اعمل setupSidebarButtons()
 
         setupMouseEvents();
         setupKeyboardEvents();
@@ -34,9 +33,6 @@ public class MedicineController {
         setupEditButton();
     }
 
-    // =========================================================
-    // SEARCH
-    // =========================================================
     private void setupSearch() {
         view.getSearchField().textProperty().addListener((observable, oldValue, newValue) -> {
             filterMedicines(newValue);
@@ -54,61 +50,9 @@ public class MedicineController {
         view.getMedicineTable().setItems(filtered);
     }
 
-    // =========================================================
-    // NEW - بتاع زرار Search اللي جنب مربع البحث
-    // =========================================================
-    // ده مكنش شغال قبل كده، كان لازم تدوس Enter او تكتب بس
-    private void setupSearchButton() {
-        view.getSearchButton().setOnAction(event -> {
-            filterMedicines(view.getSearchField().getText());
-        });
-    }
+    // TODO 1 - زرار Search
+    // TODO 2 - زرارير السايد بار
 
-    // =========================================================
-    // NEW - بتاع زرارير السايد بار - التاسك كله هنا
-    // =========================================================
-    private void setupSidebarButtons() {
-
-        // NEW - بتاع زرار Home
-        view.getHomeButton().setOnAction(e -> {
-            view.showMainContent();
-            view.getSearchField().clear();
-            view.getMedicineTable().setItems(allMedicines);
-        });
-
-        // NEW - بتاع زرار Medicines
-        view.getMedicinesButton().setOnAction(e -> {
-            view.showMainContent();
-            view.getSearchField().clear();
-            view.getMedicineTable().setItems(allMedicines);
-        });
-
-        // NEW - بتاع زرار Sales
-        view.getSalesButton().setOnAction(e -> {
-            view.showPlaceholderPage("Sales", "Sales page - Coming soon.");
-        });
-
-        // NEW - بتاع زرار Reports
-        view.getReportsButton().setOnAction(e -> {
-            view.showPlaceholderPage("Reports", "Reports page - Coming soon.\nTotal medicines: " + allMedicines.size());
-        });
-
-        // NEW - بتاع زرار Settings
-        view.getSettingsButton().setOnAction(e -> {
-            view.showPlaceholderPage("Settings", "Settings page - Coming soon.");
-        });
-
-        // NEW - بتاع زرار Logout
-        view.getLogoutButton().setOnAction(e -> {
-            showAlert("Logout", "Logged out successfully.");
-            javafx.application.Platform.exit();
-        });
-    }
-    // ====== END NEW ======
-
-    // =========================================================
-    // ADD MEDICINE
-    // =========================================================
     private void setupAddButton() {
         view.getAddButton().setOnAction(event -> {
             addMedicine();
@@ -131,7 +75,6 @@ public class MedicineController {
             String name = addView.getNameField().getText().trim();
             String priceText = addView.getPriceField().getText().trim();
             String quantityText = addView.getQuantityField().getText().trim();
-
             if (name.isEmpty()) {
                 showAlert("Invalid Data", "Medicine name cannot be empty.");
                 return;
@@ -146,7 +89,6 @@ public class MedicineController {
                 showAlert("Invalid Data", "Quantity cannot be negative.");
                 return;
             }
-
             Medicine medicine = new Medicine(name, price, quantity);
             service.addMedicine(medicine);
             allMedicines.add(medicine);
@@ -154,15 +96,11 @@ public class MedicineController {
             view.getMedicineTable().refresh();
             addView.getStage().close();
             showAlert("Success", "Medicine added successfully.");
-
         } catch (NumberFormatException e) {
             showAlert("Invalid Data", "Price must be a number and quantity must be an integer.");
         }
     }
 
-    // =========================================================
-    // EDIT MEDICINE
-    // =========================================================
     private void setupEditButton() {
         view.getEditButton().setOnAction(event -> {
             editSelectedMedicine();
@@ -190,7 +128,6 @@ public class MedicineController {
             String name = editView.getNameField().getText().trim();
             double price = Double.parseDouble(editView.getPriceField().getText().trim());
             int quantity = Integer.parseInt(editView.getQuantityField().getText().trim());
-
             if (name.isEmpty()) {
                 showAlert("Invalid Data", "Medicine name cannot be empty.");
                 return;
@@ -203,7 +140,6 @@ public class MedicineController {
                 showAlert("Invalid Data", "Quantity cannot be negative.");
                 return;
             }
-
             Medicine updatedMedicine = new Medicine(name, price, quantity);
             service.updateMedicine(oldMedicine, updatedMedicine);
             int index = allMedicines.indexOf(oldMedicine);
@@ -211,15 +147,11 @@ public class MedicineController {
             view.getMedicineTable().refresh();
             editView.getStage().close();
             showAlert("Success", "Medicine updated successfully.");
-
         } catch (NumberFormatException e) {
             showAlert("Invalid Data", "Price must be a number and quantity must be an integer.");
         }
     }
 
-    // =========================================================
-    // ALERT
-    // =========================================================
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -228,9 +160,6 @@ public class MedicineController {
         alert.showAndWait();
     }
 
-    // =========================================================
-    // MOUSE EVENTS
-    // =========================================================
     private void setupMouseEvents() {
         view.getSearchField().setOnMouseClicked(event -> {
             System.out.println("Mouse Clicked");
@@ -260,9 +189,6 @@ public class MedicineController {
         });
     }
 
-    // =========================================================
-    // KEYBOARD EVENTS
-    // =========================================================
     private void setupKeyboardEvents() {
         view.getSearchField().setOnKeyPressed(event -> {
             System.out.println("Key Pressed: " + event.getCode());
@@ -278,9 +204,6 @@ public class MedicineController {
         });
     }
 
-    // =========================================================
-    // GET VIEW
-    // =========================================================
     public MedicineView getView() {
         return view;
     }
