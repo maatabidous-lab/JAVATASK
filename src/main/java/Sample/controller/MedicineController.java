@@ -278,10 +278,5 @@ public class MedicineController {
         });
     }
 
-    // =========================================================
-    // GET VIEW
-    // =========================================================
-    public MedicineView getView() {
-        return view;
-    }
+
 }
