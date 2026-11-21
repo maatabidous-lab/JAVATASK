@@ -22,13 +22,11 @@ public class MedicineController {
         allMedicines = FXCollections.observableArrayList(service.loadMedicines());
         view.getMedicineTable().setItems(allMedicines);
 
-        // TODO - التاسك هنا: فعل الزرارير اللي نايمة
-        // 1 - اعمل setupSearchButton()
-        // 2 - اعمل setupSidebarButtons()
-
         setupMouseEvents();
         setupKeyboardEvents();
         setupSearch();
+        setupSearchButton();
+        setupSidebarButtons();
         setupAddButton();
         setupEditButton();
     }
@@ -50,8 +48,44 @@ public class MedicineController {
         view.getMedicineTable().setItems(filtered);
     }
 
-    // TODO 1 - زرار Search
-    // TODO 2 - زرارير السايد بار
+    // التاسك 1 - زرار Search
+    private void setupSearchButton() {
+        view.getSearchButton().setOnAction(event -> {
+            filterMedicines(view.getSearchField().getText());
+            view.showMainContent();
+        });
+    }
+
+    // التاسك 2 - زرارير السايد بار
+    private void setupSidebarButtons() {
+        view.getHomeButton().setOnAction(event -> {
+            view.getSearchField().clear();
+            view.getMedicineTable().setItems(allMedicines);
+            view.showMainContent();
+        });
+
+        view.getMedicinesButton().setOnAction(event -> {
+            view.getSearchField().clear();
+            view.getMedicineTable().setItems(allMedicines);
+            view.showMainContent();
+        });
+
+        view.getSalesButton().setOnAction(event -> {
+            view.showPlaceholderPage("Sales", "Sales page - Coming Soon");
+        });
+
+        view.getReportsButton().setOnAction(event -> {
+            view.showPlaceholderPage("Reports", "Reports page - Coming Soon");
+        });
+
+        view.getSettingsButton().setOnAction(event -> {
+            view.showPlaceholderPage("Settings", "Settings page - Coming Soon");
+        });
+
+        view.getLogoutButton().setOnAction(event -> {
+            showAlert("Logout", "Logged out successfully.");
+        });
+    }
 
     private void setupAddButton() {
         view.getAddButton().setOnAction(event -> {
